@@ -1,0 +1,136 @@
+[
+  {
+    "source_id": "entsoe_es_dayahead",
+    "country_code": "ES",
+    "country_name": "España",
+    "provider": "entsoe",
+    "dataset": "day_ahead_prices",
+    "fetcher": "http_single",
+    "parser": "entsoe_xml",
+    "format": "xml",
+    "auth": {
+      "type": "query_param",
+      "param_name": "securityToken",
+      "secret_name": "entsoe-token"
+    },
+    "source_timezone": "Europe/Madrid",
+    "currency": "EUR",
+    "unit": "EUR/MWh",
+    "request": {
+      "url": "https://web-api.tp.entsoe.eu/api",
+      "method": "GET",
+      "query_params": {
+        "documentType": "A44",
+        "in_Domain": "10YES-REE------0",
+        "out_Domain": "10YES-REE------0",
+        "periodStart": "{window_start:%Y%m%d%H%M}",
+        "periodEnd": "{window_end:%Y%m%d%H%M}"
+      },
+      "_note": "periodStart/periodEnd deben ir en UTC, no en hora local del bidding zone"
+    },
+    "ingestion": {
+      "start_date": "2026-08-01",
+      "window_size_days": 1,
+      "lookback_days": 2
+    },
+    "target_table": "bronze.prices_es",
+    "active": true
+  },
+  {
+    "source_id": "entsoe_ro_dayahead",
+    "country_code": "RO",
+    "country_name": "Rumania",
+    "provider": "entsoe",
+    "dataset": "day_ahead_prices",
+    "fetcher": "http_single",
+    "parser": "entsoe_xml",
+    "format": "xml",
+    "auth": {
+      "type": "query_param",
+      "param_name": "securityToken",
+      "secret_name": "entsoe-token"
+    },
+    "source_timezone": "Europe/Bucharest",
+    "currency": "EUR",
+    "unit": "EUR/MWh",
+    "request": {
+      "url": "https://web-api.tp.entsoe.eu/api",
+      "method": "GET",
+      "query_params": {
+        "documentType": "A44",
+        "in_Domain": "10YRO-TEL------P",
+        "out_Domain": "10YRO-TEL------P",
+        "periodStart": "{window_start:%Y%m%d%H%M}",
+        "periodEnd": "{window_end:%Y%m%d%H%M}"
+      }
+    },
+    "ingestion": {
+      "start_date": "2026-08-01",
+      "window_size_days": 1,
+      "lookback_days": 2
+    },
+    "target_table": "bronze.prices_ro",
+    "active": true
+  },
+  {
+    "source_id": "smard_de_dayahead",
+    "country_code": "DE",
+    "country_name": "Alemania",
+    "provider": "smard",
+    "dataset": "day_ahead_prices",
+    "fetcher": "http_index_then_file",
+    "parser": "smard_json",
+    "format": "json",
+    "auth": {
+      "type": "none"
+    },
+    "source_timezone": "Europe/Berlin",
+    "currency": "EUR",
+    "unit": "EUR/MWh",
+    "request": {
+      "index_url": "https://www.smard.de/app/chart_data/4169/DE/index_hour.json",
+      "index_selector": "timestamps",
+      "data_url": "https://www.smard.de/app/chart_data/4169/DE/4169_DE_hour_{file_timestamp}.json",
+      "method": "GET",
+      "_note": "El index devuelve epoch-millis de archivos semanales. El fetcher elige los que solapan la ventana y descarga uno por uno."
+    },
+    "ingestion": {
+      "start_date": "2026-08-01",
+      "window_size_days": 1,
+      "lookback_days": 2
+    },
+    "target_table": "bronze.prices_de",
+    "active": true
+  },
+  {
+    "source_id": "pse_pl_rce",
+    "country_code": "PL",
+    "country_name": "Polonia",
+    "provider": "pse",
+    "dataset": "day_ahead_prices",
+    "fetcher": "http_single",
+    "parser": "pse_json",
+    "format": "json",
+    "auth": {
+      "type": "none"
+    },
+    "source_timezone": "Europe/Warsaw",
+    "currency": "PLN",
+    "unit": "PLN/MWh",
+    "request": {
+      "url": "https://api.raporty.pse.pl/api/rce-pln",
+      "method": "GET",
+      "query_params": {
+        "$filter": "business_date eq '{window_start:%Y-%m-%d}'"
+      },
+      "_note": "La respuesta ya trae dtime_utc; el parser no debe reconvertir zona horaria."
+    },
+    "ingestion": {
+      "start_date": "2026-08-01",
+      "window_size_days": 1,
+      "lookback_days": 2
+    },
+    "target_table": "bronze.prices_pl",
+    "active": true
+  }
+]
