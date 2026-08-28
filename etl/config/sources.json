@@ -15,6 +15,7 @@
     "source_timezone": "Europe/Madrid",
     "currency": "EUR",
     "unit": "EUR/MWh",
+    "resolution_minutes": 15,
     "request": {
       "url": "https://web-api.tp.entsoe.eu/api",
       "method": "GET",
@@ -50,6 +51,7 @@
     "source_timezone": "Europe/Bucharest",
     "currency": "EUR",
     "unit": "EUR/MWh",
+    "resolution_minutes": 15,
     "request": {
       "url": "https://web-api.tp.entsoe.eu/api",
       "method": "GET",
@@ -84,6 +86,7 @@
     "source_timezone": "Europe/Berlin",
     "currency": "EUR",
     "unit": "EUR/MWh",
+    "resolution_minutes": 60,
     "request": {
       "index_url": "https://www.smard.de/app/chart_data/4169/DE/index_hour.json",
       "index_selector": "timestamps",
@@ -113,6 +116,7 @@
     "source_timezone": "Europe/Warsaw",
     "currency": "PLN",
     "unit": "PLN/MWh",
+    "resolution_minutes": 15,
     "request": {
       "url": "https://api.raporty.pse.pl/api/rce-pln",
       "method": "GET",

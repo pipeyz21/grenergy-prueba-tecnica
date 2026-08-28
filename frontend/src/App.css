@@ -1,0 +1,61 @@
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+header h1 { margin: 0; font-size: 1.6rem; }
+header p { margin: 0.25rem 0 1.5rem; color: #666; }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+fieldset {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.75rem 1rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+legend { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: #666; }
+fieldset small { color: #888; flex-basis: 100%; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  cursor: pointer;
+  user-select: none;
+}
+.chip.on { border-color: #333; background: #f4f4f4; }
+.chip:focus-within { outline: 2px solid #333; outline-offset: 2px; }
+.chip small { color: #888; }
+
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+label { display: inline-flex; align-items: center; gap: 0.4rem; }
+input[type='date'] { padding: 0.3rem 0.4rem; border: 1px solid #ddd; border-radius: 6px; font: inherit; }
+
+.chart { border: 1px solid #eee; border-radius: 8px; padding: 1rem 0.5rem; }
+
+.error { color: #b3261e; background: #fdecea; padding: 0.75rem 1rem; border-radius: 6px; }
+.muted { color: #888; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+caption { text-align: left; color: #666; font-size: 0.85rem; padding-bottom: 0.5rem; }
+th, td { text-align: right; padding: 0.5rem 0.75rem; border-bottom: 1px solid #eee; }
+th:first-child, td:first-child { text-align: left; }
+thead th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: #666; }
+td { font-variant-numeric: tabular-nums; }
