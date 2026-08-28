@@ -10,8 +10,7 @@
     "format": "xml",
     "auth": {
       "type": "query_param",
-      "param_name": "securityToken",
-      "secret_name": "entsoe-token"
+      "param_name": "securityToken"
     },
     "source_timezone": "Europe/Madrid",
     "currency": "EUR",
@@ -32,7 +31,7 @@
       "window_size_days": 1,
       "lookback_days": 2
     },
-    "target_table": "bronze.prices_es",
+    "target_table": "raw.prices_es",
     "active": true
   },
   {
@@ -46,8 +45,7 @@
     "format": "xml",
     "auth": {
       "type": "query_param",
-      "param_name": "securityToken",
-      "secret_name": "entsoe-token"
+      "param_name": "securityToken"
     },
     "source_timezone": "Europe/Bucharest",
     "currency": "EUR",
@@ -68,7 +66,7 @@
       "window_size_days": 1,
       "lookback_days": 2
     },
-    "target_table": "bronze.prices_ro",
+    "target_table": "raw.prices_ro",
     "active": true
   },
   {
@@ -97,7 +95,7 @@
       "window_size_days": 1,
       "lookback_days": 2
     },
-    "target_table": "bronze.prices_de",
+    "target_table": "raw.prices_de",
     "active": true
   },
   {
@@ -127,7 +125,7 @@
       "window_size_days": 1,
       "lookback_days": 2
     },
-    "target_table": "bronze.prices_pl",
+    "target_table": "raw.prices_pl",
     "active": true
   }
 ]

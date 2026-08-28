@@ -1,0 +1,82 @@
+{
+    "name": "plp_generic_ingest",
+    "objectId": "1e2ad4fa-9167-4ebf-8af7-766c5f7ebac7",
+    "properties": {
+        "activities": [
+            {
+                "name": "nb_get_config",
+                "type": "TridentNotebook",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "8f0ab140-ab7c-4d65-b36c-243235be74b3",
+                    "workspaceId": "1873ccf8-13a2-470b-98b7-e54016a19548"
+                }
+            },
+            {
+                "name": "ForEach1",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "nb_get_config",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "typeProperties": {
+                    "items": {
+                        "value": "@json(activity('nb_get_config').output.result.exitValue)",
+                        "type": "Expression"
+                    },
+                    "batchCount": 1,
+                    "activities": [
+                        {
+                            "name": "nb_ingest",
+                            "type": "TridentNotebook",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "typeProperties": {
+                                "notebookId": "e1e259d0-7adf-41b5-8308-03c77c315dd7",
+                                "workspaceId": "1873ccf8-13a2-470b-98b7-e54016a19548",
+                                "parameters": {
+                                    "source_json": {
+                                        "value": "@string(item())",
+                                        "type": "string"
+                                    },
+                                    "api_token": {
+                                        "value": {
+                                            "value": "@pipeline().parameters.entsoe_token",
+                                            "type": "Expression"
+                                        },
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "parameters": {
+            "entsoe_token": {
+                "type": "string",
+                "defaultValue": ""
+            }
+        },
+        "lastModifiedByObjectId": "b7c48222-1c7b-489d-8326-9e8259480688",
+        "lastPublishTime": "2026-08-28T20:14:54Z"
+    }
+}
