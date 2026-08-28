@@ -64,8 +64,6 @@ service principal, ni acceso al portal de Entra.
 > y el recorte no se reparte por igual entre países. `notebookutils.fs.put` escribe el resultado
 > completo.
 >
-> Si prefieres escribir con pandas directamente, la ruta es `/lakehouse/default/Files/data.csv`
-> — el punto de montaje del lakehouse adjunto, no `/<nombre_del_lakehouse>/Files/`.
 
 Se leen todos los `*.csv` del directorio, así que da igual un fichero por país o uno único. El país
 sale de la columna `country_code`; si el CSV no la trae, del nombre del fichero (`prices_es.csv` →
@@ -78,7 +76,7 @@ devuelve `data_as_of` con la fecha de descarga.
 cp .env.example .env   # rellenar FABRIC_SQL_ENDPOINT, FABRIC_DATABASE y API_KEY
 ```
 
-Con Docker (trae el driver ODBC 18 ya instalado — recomendado):
+Con Docker (recomendado):
 
 ```bash
 docker compose up --build backend
