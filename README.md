@@ -70,11 +70,16 @@ ENTSO-E se pasa como parámetro `entsoe_token` de la pipeline, no está en el re
 
 ## Decisiones técnicas
 
-**Un solo notebook, configuración por fuente.** `sources.json` describe cada país (endpoint,
-auth, parser, zona horaria, moneda, resolución, tabla destino). La pipeline itera las fuentes con
-`active: true` en un ForEach y llama al mismo notebook. Añadir un país es una entrada en el JSON,
-no código nuevo — mientras reutilice un `fetcher`/`parser` existente; una fuente con un formato
-distinto añade una rama al parser, y ese es el límite honesto del diseño.
+**Un único notebook de ingesta para los cuatro países.** `sources.json` describe cada país
+(endpoint, auth, parser, zona horaria, moneda, resolución, tabla destino). `nb_get_config` lee ese
+fichero del lakehouse y la pipeline itera las fuentes con `active: true` en un ForEach, llamando
+siempre al mismo `nb_ingest` con la fuente serializada como parámetro. No hay un notebook por
+país. Los otros dos notebooks no son ingesta: `nb_setup` crea esquemas y tablas de control una
+sola vez, y `nb_get_config` solo devuelve la configuración a la pipeline.
+
+Añadir un país es una entrada en el JSON, no código nuevo — mientras reutilice un
+`fetcher`/`parser` existente; una fuente con un formato distinto añade una rama al parser, y ese
+es el límite honesto del diseño.
 
 **Diferencias entre APIs, absorbidas en el parser.** Tres ejes: formato (XML de ENTSO-E vs JSON
 de SMARD y PSE), acceso (SMARD obliga a leer primero un índice de bloques semanales para
